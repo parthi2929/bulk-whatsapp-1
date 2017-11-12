@@ -1,0 +1,19 @@
+{
+  "name": "coinsecure_web_scraper_1",
+  "version": "1.0.0",
+  "description": "This app tries to capture market depth and price changes for a time lapse observation later. ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Parthiban R",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "puppeteer": "^0.12.0",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {},
+  "keywords": []
+}

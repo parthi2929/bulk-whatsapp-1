@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Whatsapp Auto</title>
+        <% include partials/head.ejs %>
+</head>
+<body>
+    
+    <div class="container-fluid">
+
+            <% include partials/inputwindow.ejs %>           
+
+    </div>
+    
+        <% include partials/jsincludes.ejs %>  <!-- since we use jquery in socket, this comes first to incldue jquery -->    
+
+        <% include partials/customscripts.ejs %> <!-- quill editor and socket operations done here -->
+
+</body>
+</html>

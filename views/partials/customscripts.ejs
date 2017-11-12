@@ -1,0 +1,105 @@
+<script>
+        $(document).ready(function()
+        {               
+                var toolbarOptions = ['bold', 'italic', 'underline'];
+                var quill = new Quill('#rawMessageID', 
+                {
+                        theme: 'snow',
+                        modules: 
+                        {
+                                toolbar: toolbarOptions
+                        }
+                });
+
+                //2. Initialize socket
+                var socketClient = io(); 
+                
+
+                // FOR TESTING PURPOSE
+                $("#rawNumbersID").append("919894534589\n");
+                $("#rawNumbersID").append("918105785059\n");
+                $("#rawNumbersID").append("919741083354\n");
+                //$("#rawNumbersID").append("917708030730\n");
+
+                //3. When form button is submitted 
+                $("#messageForm").submit(
+                function()
+                {
+                        //event.preventDefault();
+                        var rawNumbers = $("#rawNumbersID").val();
+                        var numbersArray = convertToArray(rawNumbers);
+
+                        var totalDetails = 
+                        {
+                                numbersArray: numbersArray,
+                                rawMessage: quill.getContents()
+                        };
+                        console.log("Numbers: " + totalDetails.numbersArray);
+                        console.log("Message: " + totalDetails.rawMessage);
+
+                        //4. Ask the server to start auto messaging in Whatsapp
+                        socketClient.emit( "Start Request Event", totalDetails);
+
+                        //5. Disable till operations are over..
+                        $("textarea").prop('disabled', true);
+                        quill.enable(false);
+                        $("button").prop('disabled', true);
+                        $("#statusTextAreaID").append('<br/><p style="line-height: 50%">Operation in progress..</p>');
+
+                        //6. Prevent any default button behaviour further
+                        return false; //also event.preventDefault() would do (if you passed event object in submit's callback function)
+                }
+                );
+
+                //Status update from Server
+                socketClient.on(
+                        "Status Update Event",
+                        function(statusArray)
+                        {
+                                var numberText = '<p style="line-height: 50%">' + statusArray.number + ' , ';
+                                var statusText = '<span style="color:green"> ' + statusArray.status + '</span></p>';
+                                $("#statusTextAreaID").append(numberText + statusText);
+                                scrollCorrect();
+                        }
+                );
+
+                //Operation completion update from Server
+                socketClient.on(
+                        "Operation Completion Event",
+                        function()
+                        {
+                                // Enable till operations are over..
+                                $("textarea").prop('disabled', false);
+                                quill.enable(true);
+                                $("button").prop('disabled', false); 
+                                $("#statusTextAreaID").append('<p style="line-height: 50%">Operation Completed..</p>');
+                                scrollCorrect();
+                        }
+                );                
+                         
+        });
+
+        //convert numbers to array before sending to server..
+        function convertToArray(numbers)
+        {
+                regex = '\n';
+                numbers = numbers
+	  		.split( new RegExp( '[' + regex + ']' ) )
+			.map( function( item ){
+			  return item.replace(/\s+/g, '');
+			} );
+
+		for( var i = numbers.indexOf( '' ); i != -1; i = numbers.indexOf( '' ) ){
+			
+			numbers.splice( i, 1 );
+                }
+                return numbers;
+        }
+
+        //auto scroll status box..
+        function scrollCorrect()
+        {
+                $("#statusTextAreaWrapID").scrollTop($("#statusTextAreaID").outerHeight());
+        }      
+
+</script>

@@ -1,0 +1,63 @@
+<div id="chatWindow">
+
+    <div class="container"><br>
+        <div class="row justify-content-center"> 
+            <form class="col-sm-12 " id="messageForm" role="form" action="#">
+                <div class="row justify-content-center"> 
+
+                    <!-- TARGET NUMBERS DECK -->
+                    <div class="col-sm-2 form-control bg-inverse text-dark">
+                        <p class="text-white">Target Numbers</p> 
+                        <div class="panel-body justify-content-left">                     
+                            <textarea autofocus id="rawNumbersID" name="rawNumbers"
+                            style="width:95%; background: rgb(190, 231, 238); min-height: 350px;max-height: 350px; overflow-y: scroll;">
+                            </textarea>                    
+                        </div><br>
+                    </div>            
+
+                    <!-- MESSAGE DECK -->
+                    <div class="col-sm-6 form-control bg-fade">
+                        <p>Message</p> 
+                        <div class="panel-body">                     
+                            <div id="rawMessageID" name="rawMessage"
+                            style="background: #F0E0B0; min-height: 275px;max-height: 275px; overflow-y: scroll;">
+                            </div>
+                        </div><br>                
+
+                        <!-- SEND BUTTON -->                        
+                        <div class="row">
+                            <div class="col-sm-2 offset-5">
+                                <button type="submit"  id="sendButtonID" class="btn btn-primary">Send</button>                
+                            </div>  
+                        </div>                    
+
+                    </div>
+
+                    <!-- STATUS DECK -->
+                    <div class="col-sm-4 form-control bg-inverse text-dark">
+                            <p class="text-white">Status</p> 
+                            <div class="panel" id="statusTextAreaWrapID"
+                            style="background: rgb(200, 255, 209); min-height: 350px;max-height: 350px; overflow-y: scroll;">                                            
+                                <div id="statusTextAreaID"></div>
+                            </div><br>
+                    </div>                    
+                </div>                
+            </form>
+        </div>
+
+        <!-- STATUS DECK -->
+        <!-- <div class="row justify-content-center">
+            <div class="col-sm-8 bg-inverse">
+                <p class="text-white">Status</p> 
+            </div>   
+            <div class="col-sm-8 bg-inverse">
+                <div class="panel" id="statusTextAreaWrapID"
+                style="background: rgb(200, 255, 209); min-height: 100px;max-height: 100px; overflow-y: scroll;">                                            
+                    <div id="statusTextAreaID"></div>
+                </div>                
+                <br>
+            </div>              
+        </div> -->
+    </div>
+
+</div>
