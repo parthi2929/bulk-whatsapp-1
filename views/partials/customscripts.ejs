@@ -56,8 +56,8 @@
                         "Status Update Event",
                         function(statusArray)
                         {
-                                var numberText = '<p style="line-height: 50%">' + statusArray.number + ' , ';
-                                var statusText = '<span style="color:green"> ' + statusArray.status + '</span></p>';
+                                var numberText = '<p style="line-height: 50%">' + statusArray.number + ',';
+                                var statusText = '<span style="color:green">' + statusArray.status + '</span></p>';
                                 $("#statusTextAreaID").append(numberText + statusText);
                                 scrollCorrect();
                         }

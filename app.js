@@ -14,7 +14,8 @@ var server = http.createServer(app);
 app.set("view engine","ejs");
 var selectors = [
     '.compose-btn-send',
-    '.popup-contents'
+    '.popup-contents',
+    '.block-message'    
   ];
 const TEXT_SELECTOR = '#main > footer > div.block-compose > div.input-container > div > div.pluggable-input-body.copyable-text.selectable-text';
 
@@ -106,6 +107,10 @@ async function run(socketFromClient,numbersArray, targetMessage)
         // now lets check for the h1 element on example.com
         const isPopupPresent = await check(selectors[1], page);
         console.log(`Popup Found? : ${isPopupPresent}`);  
+
+        // now lets check for the h1 element on example.com
+        const isBlocked = await check(selectors[2], page);
+        console.log(`Is Number Blocked? : ${isBlocked}`);          
     
         if (isSendButtonPresent)
         {
@@ -130,6 +135,12 @@ async function run(socketFromClient,numbersArray, targetMessage)
             statusOne = "Invalid Number";
             ++failureCounter;
             socketFromClient.emit("Status Update Event", {number: numbersArray[i], status: "Failure"});
+        }
+        if(isBlocked)
+        {
+            statusOne = "Blocked Number";
+            ++failureCounter;
+            socketFromClient.emit("Status Update Event", {number: numbersArray[i], status: "Blocked"});
         }
         page.waitFor(2000);
         ++totalCounter;
